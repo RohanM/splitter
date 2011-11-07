@@ -18,8 +18,20 @@ end
 SplitData.auto_migrate! unless SplitData.storage_exists?
 
 
+# -- Filters
+
+before do
+  if params.key? 'split_experiment' and params.key? 'split_source'
+    
+  end
+end
+
 # -- Views
 
 get '/' do
   haml (rand > 0.5 ? :index_a : :index_b)
+end
+
+get '/action' do
+  haml :action
 end
