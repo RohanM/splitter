@@ -16,13 +16,14 @@ class SplitData
 end
 
 SplitData.auto_migrate! unless SplitData.storage_exists?
+DataMapper.finalize
 
 
 # -- Filters
 
 before do
   if params.key? 'split_experiment' and params.key? 'split_source'
-    
+    SplitData.create(:experiment => params['split_experiment'], :path => request.path_info, :source => params['split_source'])
   end
 end
 
