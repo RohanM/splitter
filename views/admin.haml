@@ -1,0 +1,14 @@
+%h1 Admin
+
+- @results.each_pair do |experiment, rows|
+  %h2= experiment
+  %table{:border => 1}
+    %tr
+      %th Path
+      %th Source
+      %th Num hits
+    - rows.each do |row|
+      %tr
+        %td= row.path
+        %td= row.source
+        %td= row.num_hits

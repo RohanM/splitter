@@ -36,3 +36,18 @@ end
 get '/action' do
   haml :action
 end
+
+get '/admin' do
+  split_data = repository(:default).adapter.select('select experiment, path, source, count(source) as num_hits from split_data group by experiment, path, source order by experiment, path, source')
+  
+  # Data format to pass to view:
+  # {'experiment name' => [{:path => '...', :source => '...', :num_hits => 123}]}
+
+  @results = {}
+  split_data.each do |data|
+    @results[data['experiment']] ||= []
+    @results[data['experiment']] << data
+  end
+
+  haml :admin
+end
